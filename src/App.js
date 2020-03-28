@@ -4,7 +4,7 @@ import MyGraph from './components/graph';
 
 function App() {
   return (
-      <MyGraph />
+      <MyGraph target="hehe" goal="haha"/>
   );
 }
 

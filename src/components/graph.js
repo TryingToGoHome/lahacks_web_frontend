@@ -11,24 +11,42 @@ class MyGraph extends React.Component
     {
         super(props);
         var graphData;
-        Client.retrieveGraphData(props.city, props.criteria, (res) => {
-            graphData = res.data;
-        });
+        this.state = {
+            target: props.target,
+            goal: props.goal
+        };
     }
 
     render()
     {
-        const options = {title: {text: "hello there"},
-                         data: [{
-                             type: "column",
-                             dataPoints: [
-                                 {label: "happy", y: 1},
-                                 {label: "happy", y: 2},
-                                 {label: "happy", y: 3},
-                                 {label: "happy", y: 4},
-                                 {label: "happy", y: 5},
-                             ]
-                         }]};
+        const options = {
+            animationEnabled: true,
+            title: {text: "hello there"},
+            data: [{
+                name: this.state.target, 
+                type: "spline",
+                showInLegend: true,
+                dataPoints: [
+                    {x: 1, y: 1},
+                    {x: 2, y: 2},
+                    {x: 3, y: 3},
+                    {x: 4, y: 4},
+                    {x: 5, y: 5},
+                ]
+            }, 
+            {
+                name: this.state.goal,
+                type: "spline",
+                showInLegend: true,
+                dataPoints: [
+                    {x: 1, y: 5},
+                    {x: 2, y: 4},
+                    {x: 3, y: 3},
+                    {x: 4, y: 2},
+                    {x: 5, y: 1},
+                ]
+            }]
+        };
         return (
             <div>
                 <CanvasJSChart options = {options}/>
