@@ -1,4 +1,14 @@
+# LA Hacks 2020 Frontend Repository
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Install Dependencies
+
+To install the node modules requirements, install Node.js, then in this working directory, run
+
+### `npm install`
+
+Will install the node packages required for this project. 
 
 ## Available Scripts
 
