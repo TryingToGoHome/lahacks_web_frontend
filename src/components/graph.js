@@ -21,7 +21,7 @@ class MyGraph extends React.Component
     {
         const options = {
             animationEnabled: true,
-            title: {text: "hello there"},
+            title: {text: `${this.state.target} vs. ${this.state.goal}`},
             data: [{
                 name: this.state.target, 
                 type: "spline",
