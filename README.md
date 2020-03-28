@@ -4,11 +4,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Install Dependencies
 
-First you need to have `node` and `npm`. For mac users, run 
+First you need to install node.js. For mac users, run 
 
 ### `brew install node`
 
-To install the node modules requirements, install Node.js, then in this working directory, run
+After you install Node.js, in this working directory, run
 
 ### `npm install`
 
