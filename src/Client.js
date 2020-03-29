@@ -1,7 +1,7 @@
 // define functions to communicate from frontend to backend
 function retrieveGraphData(city, criteria, cb)
 {
-    return cb({data: {[city]: [{x: 5, y: 7}, {x:4, y:9}]}})
+    return cb({target:city, goal:["c1", "c2"], data: {[city]: [{x: 5, y: 7}, {x:4, y:9}], "c1":[{x: 3, y: 3}, {x:7, y: 6}], "c2":[{x:2, y:10}, {x:1, y:6}]}})
 }
 
 
