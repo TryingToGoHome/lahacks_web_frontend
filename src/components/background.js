@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Button, Jumbotron} from 'reactstrap';
+import {Jumbotron} from 'reactstrap';
 import GraphForm from './form';
 
 class Background extends React.Component
