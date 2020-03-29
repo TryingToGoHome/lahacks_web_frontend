@@ -2,16 +2,14 @@ import React, { Component } from "react";
 import Client from "../Client";
 import MyGraph from './graph';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Button, ButtonDropdown, ButtonGroup, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
+import {Button, ButtonDropdown, ButtonGroup, DropdownToggle, DropdownMenu, DropdownItem, Collapse, Card, CardBody, CardTitle, CardText, Row, Col} from 'reactstrap';
 
 class GraphForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { city: "", criteria: "", data: {}, target:"", goal:""};
+        this.state = { city: "", criteria: "", data: {}, target:"", goal:"", isOpenCity:false, isOpenCrit:false, isOpenPoli:false};
         this.available_cities = ["Los Angeles", "New York"];
         this.criteria = ["5 days", "10 days"];
-        this.isOpenCity = false;
-        this.isOpenCrit = false;
     }
 
     myChangeHandler = event => {
@@ -32,6 +30,10 @@ class GraphForm extends Component {
     {
         this.setState({isOpenCity: !this.state.isOpenCity});
     }
+    togglePoli = () =>
+    {
+        this.setState({isOpenPoli: !this.state.isOpenPoli});
+    }
 
     render() {
         let cityOptions = this.available_cities.map((city, idx) =>
@@ -48,7 +50,6 @@ class GraphForm extends Component {
         }
         else 
         {
-            console.log("hi");
             city = this.state.city;
         }
         var criteria;
@@ -85,6 +86,35 @@ class GraphForm extends Component {
             <Button color="primary" type="submit" onClick={this.onSubmit}>
                 Submit
             </Button>
+            <div>
+                <Button color="primary" onClick={this.togglePoli} style={{marginBottom: "1rem"}}>Compare policies</Button>
+                <Collapse isOpen={this.state.isOpenPoli}>
+                    <Row>
+                        <Col sm="6">
+                            <Card body>
+                                <CardTitle>{this.state.target}</CardTitle>
+                                <CardText>
+                                    <ul>
+                                        <li>Policy 1</li>
+                                        <li>Policy 2</li>
+                                    </ul>
+                                </CardText>
+                            </Card>
+                        </Col>
+                        <Col sm="6">
+                            <Card body>
+                                <CardTitle>{this.state.goal}</CardTitle>
+                                <CardText>
+                                    <ul>
+                                        <li>Policy 1</li>
+                                        <li>Policy 2</li>
+                                    </ul>
+                                </CardText>
+                            </Card>
+                        </Col>
+                    </Row>
+                </Collapse>
+            </div>
         </div>
         );
     }
