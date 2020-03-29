@@ -7,8 +7,11 @@ import {Button, ButtonDropdown, ButtonGroup, DropdownToggle, DropdownMenu, Dropd
 class GraphForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { city: "", criteria: "", data: {}, target:"", goal:"", isOpen:false};
-        this.available_cities = ["Los Angeles", "New York"]
+        this.state = { city: "", criteria: "", data: {}, target:"", goal:""};
+        this.available_cities = ["Los Angeles", "New York"];
+        this.criteria = ["5 days", "10 days"];
+        this.isOpenCity = false;
+        this.isOpenCrit = false;
     }
 
     myChangeHandler = event => {
@@ -21,51 +24,62 @@ class GraphForm extends Component {
         })
     };
 
-    toggle = () =>
+    toggleCrit = () =>
     {
-        this.setState({isOpen: !this.state.isOpen})
+        this.setState({isOpenCrit: !this.state.isOpenCrit});
+    }
+    toggleCity = () =>
+    {
+        this.setState({isOpenCity: !this.state.isOpenCity});
     }
 
     render() {
         let cityOptions = this.available_cities.map((city, idx) =>
-            <DropdownItem key={idx} value={city}>{city}</DropdownItem>
-        )
-        let criteriaOptions = [
-        <option key="first">5 days</option>,
-        <option key="second">10 days</option>
-        ];
-        var target;
-        if (this.state.target == "")
+            <DropdownItem name="city" key={idx} value={city} onClick={this.myChangeHandler}>{city}</DropdownItem>
+        );
+        let criteriaOptions = this.criteria.map((cri, idx) =>
+            <DropdownItem name="criteria" key={idx} value={cri} onClick={this.myChangeHandler}>{cri}</DropdownItem>
+        );
+
+        var city;
+        if (this.state.city == "")
         {
-            target = "Select a city";
+            city = "Select a city";
         }
         else 
         {
-            target = this.state.target;
+            console.log("hi");
+            city = this.state.city;
+        }
+        var criteria;
+        if (this.state.criteria == "")
+        {
+            criteria = "Select a criteria";
+        }
+        else
+        {
+            criteria = this.state.criteria;
         }
         console.log(this.state);
         return (
         <div>
             <MyGraph target={this.state.target} goal={this.state.goal} data={this.state.data}/>
-            <select name="city" onChange={this.myChangeHandler}>
-                <option disabled selected value="">
-                    Select the city
-                </option>
-                {cityOptions}
-            </select>
-            <select name="criteria" onChange={this.myChangeHandler}>
-                <option disabled selected value="">
-                    Select the criteria
-                </option>
-                {criteriaOptions}
-            </select>
-            <ButtonDropdown isOpen={this.state.isOpen} toggle={this.toggle}>
-                <Button id="caret" color="primary">{target}</Button>
+            <ButtonDropdown isOpen={this.state.isOpenCity} toggle={this.toggleCity}>
+                <Button id="caret" color="primary">{city}</Button>
                 <DropdownToggle caret color="primary" />
                 <DropdownMenu right>
                     <DropdownItem header>Select a city</DropdownItem>
                     <DropdownItem divider/>
-
+                    {cityOptions}
+                </DropdownMenu>
+            </ButtonDropdown>
+            <ButtonDropdown isOpen={this.state.isOpenCrit} toggle={this.toggleCrit}>
+                <Button id="caret" color="primary">{criteria}</Button>
+                <DropdownToggle caret color="primary" />
+                <DropdownMenu right>
+                    <DropdownItem header>Select a criteria</DropdownItem>
+                    <DropdownItem divider/>
+                    {criteriaOptions}
                 </DropdownMenu>
             </ButtonDropdown>
             <Button color="primary" type="submit" onClick={this.onSubmit}>
