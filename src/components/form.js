@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import Client from "../Client";
+import MyGraph from './graph';
 
 class GraphForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { city: "", criteria: "", data: {}};
+        this.state = { city: "", criteria: "", data: {}, target:"", goal:""};
     }
 
   myChangeHandler = event => {
@@ -13,7 +14,7 @@ class GraphForm extends Component {
 
   onSubmit = event => { 
     Client.retrieveGraphData(this.state.city, this.state.criteria, (res) => {
-        this.setState({data: res.data});
+        this.setState({data: res.data, target: this.state.city});
     })
   };
 
@@ -33,6 +34,7 @@ class GraphForm extends Component {
     console.log(this.state);
     return (
       <div>
+        <MyGraph target={this.state.target} goal={this.state.goal} data={this.state.data}/>
         <select name="city" onChange={this.myChangeHandler}>
         <option disabled selected value="">
             Select the city
