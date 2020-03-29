@@ -1,7 +1,7 @@
 // define functions to communicate from frontend to backend
 function retrieveGraphData(city, criteria, cb)
 {
-    return 
+    return cb({data: {nope: "you are not getting this"}})
 }
 
 

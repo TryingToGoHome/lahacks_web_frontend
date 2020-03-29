@@ -1,38 +1,55 @@
 import React, { Component } from "react";
+import Client from "../Client";
 
 class GraphForm extends Component {
     constructor(props) {
         super(props);
-        this.state = { city: "", criteria: "", data: {} };
+        this.state = { city: "", criteria: "", data: {}};
     }
 
-    myChangeHandler = event => {
-        this.setState({ [event.target.value]: event.target.value });
-    };
+  myChangeHandler = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
 
-    onSubmit = () => {
-        
-    };
+  onSubmit = event => { 
+    Client.retrieveGraphData(this.state.city, this.state.criteria, (res) => {
+        this.setState({data: res.data});
+    })
+  };
 
-    render() {
-        let cityOptions = ["LA", "NY"];
-        let criteriaOptions = ["5 days", "10 days"];
-        return (
-            <form onSubmit={this.onSubmit}>
-                <select name="city" onChange={this.myChangeHandler}>
-                    <option disabled selected value="">
-                      Select the city
-                    </option>
-                    {cityOptions}
-                </select>
-                <select name="criteria" onChange={this.myChangeHandler}>
-                    <option disabled selected value="">
-                      Select the criteria
-                    </option>
-                    {criteriaOptions}
-                </select>
-                <button type="submit">Submit</button>
-            </form>
-        );
-    }
+  render() {
+    let cityOptions = [
+      <option key="first" value="LA">
+        LA
+      </option>,
+      <option key="second" value="NY">
+        NY
+      </option>
+    ];
+    let criteriaOptions = [
+      <option key="first">5 days</option>,
+      <option key="second">10 days</option>
+    ];
+    console.log(this.state);
+    return (
+      <div>
+        <select name="city" onChange={this.myChangeHandler}>
+        <option disabled selected value="">
+            Select the city
+        </option>
+        {cityOptions}
+        </select>
+        <select name="criteria" onChange={this.myChangeHandler}>
+        <option disabled selected value="">
+            Select the criteria
+        </option>
+        {criteriaOptions}
+        </select>
+        <button type="submit" onClick={this.onSubmit}>
+        Submit
+        </button>
+      </div>
+    );
+  }
 }
+export default GraphForm;
