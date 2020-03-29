@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Client from "../Client";
 import MyGraph from './graph';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Button} from 'reactstrap';
+import {Button, } from 'reactstrap';
 
 class GraphForm extends Component {
     constructor(props) {
