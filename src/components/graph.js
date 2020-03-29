@@ -13,38 +13,45 @@ class MyGraph extends React.Component
         var graphData;
         this.state = {
             target: props.target,
-            goal: props.goal
+            goal: props.goal,
+            data: props.data
         };
+    }
+    
+    componentDidUpdate(prevProps)
+    {
+        if (prevProps.target != this.props.target || prevProps.goal != this.props.goal || prevProps.data != this.props.data)
+        {
+            this.setState({target: this.props.target, goal: this.props.goal, data: this.props.data})
+        }
     }
 
     render()
     {
+        console.log(this.state.target)
+        var title;
+        if (this.state.target == "")
+        {
+            title = "";
+        }
+        else
+        {
+            title = `${this.state.target} vs. ${this.state.goal}`;
+        }
         const options = {
             animationEnabled: true,
-            title: {text: `${this.state.target} vs. ${this.state.goal}`},
+            title: {text: title},
             data: [{
                 name: this.state.target, 
                 type: "spline",
                 showInLegend: true,
-                dataPoints: [
-                    {x: 1, y: 1},
-                    {x: 2, y: 2},
-                    {x: 3, y: 3},
-                    {x: 4, y: 4},
-                    {x: 5, y: 5},
-                ]
+                dataPoints: this.state.data[this.state.target]
             }, 
             {
                 name: this.state.goal,
                 type: "spline",
                 showInLegend: true,
-                dataPoints: [
-                    {x: 1, y: 5},
-                    {x: 2, y: 4},
-                    {x: 3, y: 3},
-                    {x: 4, y: 2},
-                    {x: 5, y: 1},
-                ]
+                dataPoints: this.state.data[this.state.goal]
             }]
         };
         return (
